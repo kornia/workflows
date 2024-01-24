@@ -1,0 +1,66 @@
+on:
+  workflow_call:
+    inputs:
+      python-version:
+        required: false
+        type: string
+        default: '["3.11"]'
+      pytorch-version:
+        required: false
+        type: string
+        default: '["2.1.2"]'
+      os:
+        required: false
+        type: string
+        default: ubuntu-latest
+      pytorch-dtype:
+        required: false
+        type: string
+        default: 'float32'
+      pytorch-device:
+        required: false
+        type: string
+        default: 'cpu'
+      pytest-extra:
+        required: false
+        type: string
+        default: '--timeout=5 -k "not test_dynamo"'
+      fail-fast:
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  tests:
+    name: python-${{ matrix.python-version }}, torch-${{ matrix.pytorch-version }}
+    runs-on: ${{ inputs.os }}
+    strategy:
+      fail-fast: ${{ inputs.fail-fast }}
+      matrix:
+        python-version: ${{ fromJSON(inputs.python-version) }}
+        pytorch-version: ${{ fromJSON(inputs.pytorch-version) }}
+        exclude:
+          - pytorch-version: '1.9.1'
+            python-version: '3.10'
+          - pytorch-version: '1.10.2'
+            python-version: '3.10'
+          - pytorch-version: '1.9.1'
+            python-version: '3.11'
+          - pytorch-version: '1.10.2'
+            python-version: '3.11'
+          - pytorch-version: '1.11.0'
+            python-version: '3.11'
+          - pytorch-version: '1.12.1'
+            python-version: '3.11'
+          - pytorch-version: '1.13.1'
+            python-version: '3.11'
+
+    steps:
+    - uses: kornia/workflows/.github/actions/tests@v1.0.0
+      with:
+        os: ${{ inputs.os }}
+        python-version: ${{ matrix.python-version }}
+        pytorch-version: ${{ matrix.pytorch-version }}
+        pytorch-dtype: ${{ inputs.pytorch-dtype }}
+        pytorch-device: ${{ inputs.pytorch-device }}
+        pytest-extra: ${{ matrix.pytest-extra }}

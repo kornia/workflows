@@ -1,0 +1,65 @@
+name: Coverage tests run
+
+on:
+  workflow_dispatch:
+    inputs:
+      python-version:
+        required: false
+        type: string
+        default: "3.11"
+      pytorch-version:
+        required: false
+        type: string
+        default: "2.1.2"
+      os:
+        required: false
+        type: string
+        default: ubuntu-latest
+      pytorch-dtype:
+        required: false
+        type: string
+        default: 'float32'
+      pytorch-device:
+        required: false
+        type: string
+        default: 'cpu'
+      pytest-extra:
+        required: false
+        type: string
+        default: '--timeout=5 -k "not test_dynamo"'
+      coverage-artifact:
+        required: false
+        type: string
+        default: 'coverage'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout kornia
+      uses: actions/checkout@v3
+
+    - name: Setting environment on ${{ inputs.os }} with python ${{ inputs.python-version }} and pytorch ${{ inputs.pytorch-version }}
+      uses: kornia/workflows/.github/actions/env@v1.0.0
+      with:
+        python-version: ${{ inputs.python-version }}
+        pytorch-version: ${{ inputs.pytorch-version }}
+
+    - name: Run CPU tests coverage ${{ inputs.pytorch-dtype }}
+      continue-on-error: ${{ inputs.continue-on-error }}
+      shell: bash -l {0}
+      run: |
+        coverage erase
+        coverage run --data-file=${{ inputs.coverage-artifact }} -m \
+          pytest -v ./tests/ \
+             --device=${{ inputs.pytorch-device }} \
+             --dtype=${{ inputs.pytorch-dtype }} \
+             ${{ inputs.pytest-extra }}
+
+    - name: Upload coverage results
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.coverage-artifact }}
+        path: ${{ inputs.coverage-artifact }}
+        if-no-files-found: error
+        retention-days: 1
+

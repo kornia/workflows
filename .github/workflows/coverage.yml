@@ -1,0 +1,109 @@
+on:
+  workflow_call:
+    inputs:
+      python-version:
+        required: false
+        type: string
+        default: "3.11"
+      pytorch-version:
+        required: false
+        type: string
+        default: "2.1.2"
+      pytorch-device:
+        required: false
+        type: string
+        default: "cpu"
+      os:
+        required: false
+        type: string
+        default: ubuntu-latest
+
+jobs:
+  slow:
+    # Only run tests with slow marker which aren't dynamo tests
+    runs-on: ${{ inputs.os }}
+    strategy:
+      fail-fast: true
+      matrix:
+        pytorch-dtype: ['float32', 'float64']
+
+    steps:
+    - uses: kornia/workflows/.github/actions/coverage@v1.0.0
+      with:
+        os: ${{ inputs.os }}
+        python-version: ${{ inputs.python-version }}
+        pytorch-version: ${{ inputs.pytorch-version }}
+        pytorch-dtype: ${{ matrix.pytorch-dtype }}
+        pytorch-device: ${{ inputs.pytorch-device }}
+        pytest-extra: '--runslow -k "slow and not test_dynamo"'
+        coverage-artifact: coverage-slow-${{ matrix.pytorch-dtype }}
+
+  dynamo:
+    # Run all dynamo (torch.compile) related tests
+    runs-on: ${{ inputs.os }}
+    steps:
+    - uses: kornia/workflows/.github/actions/coverage@v1.0.0
+      with:
+        os: ${{ inputs.os }}
+        python-version: ${{ inputs.python-version }}
+        pytorch-version: ${{ inputs.pytorch-version }}
+        pytorch-dtype: 'float32'
+        pytorch-device: ${{ inputs.pytorch-device }}
+        coverage: true
+        pytest-extra: '--runslow -k "test_dynamo"'
+        coverage-artifact: coverage-dynamo-float32
+
+  overall:
+    # Run all tests which didn't have a slow marker or are dynamo tests
+    runs-on: ${{ inputs.os }}
+    steps:
+    - uses: kornia/workflows/.github/actions/coverage@v1.0.0
+      with:
+        os: ${{ inputs.os }}
+        python-version: ${{ inputs.python-version }}
+        pytorch-version: ${{ inputs.pytorch-version }}
+        pytorch-dtype: 'float32,float64'
+        pytorch-device: ${{ inputs.pytorch-device }}
+        coverage: true
+        coverage-artifact: coverage-without-slow-and-dynamo
+
+  report:
+    runs-on: ${{ inputs.os }}
+    needs: [slow, dynamo, overall]
+    steps:
+      - name: Checkout kornia
+        uses: actions/checkout@v3
+
+      - name: Download coverage reports
+        uses: actions/download-artifact@v4
+        with:
+          merge-multiple: true
+
+      - name: Setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ inputs.python-version }}
+
+      - name: Install dev dependencies
+        shell: bash
+        run: pip install -r ./requirements/requirements-dev.txt
+
+      - name: Run coverage
+        run: |
+          coverage combine --keep \
+            $GITHUB_WORKSPACE/coverage-dynamo-float32 \
+            $GITHUB_WORKSPACE/coverage-slow-float32 \
+            $GITHUB_WORKSPACE/coverage-slow-float64 \
+            $GITHUB_WORKSPACE/coverage-without-slow-and-dynamo
+          coverage xml -o coverage.xml # Generate the xml
+          coverage report
+
+      - if: always()
+        name: Upload coverage
+        uses: codecov/codecov-action@v3
+        with:
+          file: coverage.xml
+          token: ${{ secrets.CODECOV_TOKEN }} # to not depend on build via GH API
+          # flags: cpu,Ubuntu-latest_py-3.11_pt-2.1.2_float32,float64
+          flags: cpu,${{ inputs.os }}_py-${{ inputs.python-version }}_pt-${{ inputs.pytorch-version }}_float32,float64
+          name: cpu-coverage
