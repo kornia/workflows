@@ -19,7 +19,7 @@ on:
         default: false
 
 jobs:
-  tests:
+  test-and-build:
     name: docstests & sphinx-build - python-${{ matrix.python-version }}, torch-${{ matrix.pytorch-version }}
     runs-on: ubuntu-latest
     strategy:

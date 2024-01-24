@@ -41,31 +41,41 @@ jobs:
   dynamo:
     # Run all dynamo (torch.compile) related tests
     runs-on: ${{ inputs.os }}
+    strategy:
+      fail-fast: true
+      matrix:
+        pytorch-dtype: ['float32']
+
     steps:
     - uses: kornia/workflows/.github/actions/coverage@v1.0.0
       with:
         os: ${{ inputs.os }}
         python-version: ${{ inputs.python-version }}
         pytorch-version: ${{ inputs.pytorch-version }}
-        pytorch-dtype: 'float32'
+        pytorch-dtype: ${{ matrix.pytorch-dtype }}
         pytorch-device: ${{ inputs.pytorch-device }}
         coverage: true
         pytest-extra: '--runslow -k "test_dynamo"'
-        coverage-artifact: coverage-dynamo-float32
+        coverage-artifact: coverage-dynamo-${{ matrix.pytorch-dtype }}
 
   overall:
     # Run all tests which didn't have a slow marker or are dynamo tests
     runs-on: ${{ inputs.os }}
+    strategy:
+      fail-fast: true
+      matrix:
+        pytorch-dtype: ['float32', 'float64']
+
     steps:
     - uses: kornia/workflows/.github/actions/coverage@v1.0.0
       with:
         os: ${{ inputs.os }}
         python-version: ${{ inputs.python-version }}
         pytorch-version: ${{ inputs.pytorch-version }}
-        pytorch-dtype: 'float32,float64'
+        pytorch-dtype: ${{ matrix.pytorch-dtype }}
         pytorch-device: ${{ inputs.pytorch-device }}
         coverage: true
-        coverage-artifact: coverage-without-slow-and-dynamo
+        coverage-artifact: coverage-overall-${{ matrix.pytorch-dtype }}
 
   report:
     runs-on: ${{ inputs.os }}
@@ -94,7 +104,8 @@ jobs:
             $GITHUB_WORKSPACE/coverage-dynamo-float32 \
             $GITHUB_WORKSPACE/coverage-slow-float32 \
             $GITHUB_WORKSPACE/coverage-slow-float64 \
-            $GITHUB_WORKSPACE/coverage-without-slow-and-dynamo
+            $GITHUB_WORKSPACE/coverage-overall-float32 \
+            $GITHUB_WORKSPACE/coverage-overall-float64 \
           coverage xml -o coverage.xml # Generate the xml
           coverage report
 

@@ -19,7 +19,7 @@ on:
         default: false
 
 jobs:
-  tests-tutorials:
+  run:
     name: python-${{ matrix.python-version }}, torch-${{ matrix.pytorch-version }}
     runs-on: ${{ inputs.os }}
     strategy:
