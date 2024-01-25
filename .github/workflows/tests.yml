@@ -29,6 +29,8 @@ on:
         required: false
         type: boolean
         default: false
+      ref:
+        default: ${{ github.sha }}
 
 jobs:
   tests:
@@ -56,7 +58,7 @@ jobs:
             python-version: '3.11'
 
     steps:
-    - uses: kornia/workflows/.github/actions/tests@v1.2.0
+    - uses: kornia/workflows/.github/actions/tests@v1.2.2
       with:
         os: ${{ inputs.os }}
         python-version: ${{ matrix.python-version }}
@@ -64,3 +66,4 @@ jobs:
         pytorch-dtype: ${{ inputs.pytorch-dtype }}
         pytorch-device: ${{ inputs.pytorch-device }}
         pytest-extra: ${{ inputs.pytest-extra }}
+        ref: ${{ inputs.ref }}

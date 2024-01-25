@@ -13,12 +13,16 @@ inputs:
     default: "2.1.2"
     type: string
 
+  ref:
+    default: ${{ github.sha }}
+
 runs:
   using: "composite"
   steps:
     - uses: asottile/workflows/.github/actions/fast-checkout@v1.6.0
       with:
         repository: kornia/kornia
+        ref: ${{ inputs.ref }}
 
     - name: Setup environment
       uses: actions/setup-python@v4

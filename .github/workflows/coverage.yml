@@ -17,6 +17,8 @@ on:
         required: false
         type: string
         default: ubuntu-latest
+      ref:
+        default: ${{ github.sha }}
 
 jobs:
   slow:
@@ -28,7 +30,7 @@ jobs:
         pytorch-dtype: ['float32', 'float64']
 
     steps:
-    - uses: kornia/workflows/.github/actions/coverage@v1.2.0
+    - uses: kornia/workflows/.github/actions/coverage@v1.2.2
       with:
         os: ${{ inputs.os }}
         python-version: ${{ inputs.python-version }}
@@ -37,6 +39,7 @@ jobs:
         pytorch-device: ${{ inputs.pytorch-device }}
         pytest-extra: '--runslow -k "slow and not test_dynamo"'
         coverage-artifact: coverage-slow-${{ matrix.pytorch-dtype }}
+        ref: ${{ inputs.ref }}
 
   dynamo:
     # Run all dynamo (torch.compile) related tests
@@ -47,7 +50,7 @@ jobs:
         pytorch-dtype: ['float32']
 
     steps:
-    - uses: kornia/workflows/.github/actions/coverage@v1.2.0
+    - uses: kornia/workflows/.github/actions/coverage@v1.2.2
       with:
         os: ${{ inputs.os }}
         python-version: ${{ inputs.python-version }}
@@ -56,6 +59,7 @@ jobs:
         pytorch-device: ${{ inputs.pytorch-device }}
         pytest-extra: '--runslow -k "test_dynamo"'
         coverage-artifact: coverage-dynamo-${{ matrix.pytorch-dtype }}
+        ref: ${{ inputs.ref }}
 
   overall:
     # Run all tests which didn't have a slow marker or are dynamo tests
@@ -66,7 +70,7 @@ jobs:
         pytorch-dtype: ['float32', 'float64']
 
     steps:
-    - uses: kornia/workflows/.github/actions/coverage@v1.2.0
+    - uses: kornia/workflows/.github/actions/coverage@v1.2.2
       with:
         os: ${{ inputs.os }}
         python-version: ${{ inputs.python-version }}
@@ -74,6 +78,7 @@ jobs:
         pytorch-dtype: ${{ matrix.pytorch-dtype }}
         pytorch-device: ${{ inputs.pytorch-device }}
         coverage-artifact: coverage-overall-${{ matrix.pytorch-dtype }}
+        ref: ${{ inputs.ref }}
 
   report:
     runs-on: ${{ inputs.os }}

@@ -17,6 +17,8 @@ on:
         required: false
         type: boolean
         default: false
+      ref:
+        default: ${{ github.sha }}
 
 jobs:
   mypy:
@@ -45,10 +47,11 @@ jobs:
 
     steps:
     - name: Setting environment on ${{ inputs.os }} with python ${{ matrix.python-version }} and pytorch ${{ matrix.pytorch-version }}
-      uses: kornia/workflows/.github/actions/env@v1.2.0
+      uses: kornia/workflows/.github/actions/env@v1.2.2
       with:
         python-version: ${{ matrix.python-version }}
         pytorch-version: ${{ matrix.pytorch-version }}
+        ref: ${{ inputs.ref }}
 
     - name: Run typing tests
       shell: bash -l {0}
