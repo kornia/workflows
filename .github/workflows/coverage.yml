@@ -54,7 +54,6 @@ jobs:
         pytorch-version: ${{ inputs.pytorch-version }}
         pytorch-dtype: ${{ matrix.pytorch-dtype }}
         pytorch-device: ${{ inputs.pytorch-device }}
-        coverage: true
         pytest-extra: '--runslow -k "test_dynamo"'
         coverage-artifact: coverage-dynamo-${{ matrix.pytorch-dtype }}
 
@@ -74,7 +73,6 @@ jobs:
         pytorch-version: ${{ inputs.pytorch-version }}
         pytorch-dtype: ${{ matrix.pytorch-dtype }}
         pytorch-device: ${{ inputs.pytorch-device }}
-        coverage: true
         coverage-artifact: coverage-overall-${{ matrix.pytorch-dtype }}
 
   report:
