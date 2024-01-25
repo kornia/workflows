@@ -10,7 +10,7 @@ on:
       pytorch-version:
         required: false
         type: string
-        default: "2.1.2"
+        default: 2.1.2
       os:
         required: false
         type: string
@@ -18,15 +18,15 @@ on:
       pytorch-dtype:
         required: false
         type: string
-        default: 'float32'
+        default: float32
       pytorch-device:
         required: false
         type: string
-        default: 'cpu'
+        default: cpu
       pytest-extra:
         required: false
         type: string
-        default: '--timeout=5 -k "not test_dynamo"'
+        default: --timeout=5 -k "not test_dynamo"
 
 
 runs:
@@ -36,7 +36,7 @@ runs:
       uses: actions/checkout@v3
 
     - name: Setting environment on ${{ inputs.os }} with python ${{ inputs.python-version }} and pytorch ${{ inputs.pytorch-version }}
-      uses: kornia/workflows/.github/actions/env@v1.0.0
+      uses: kornia/workflows/.github/actions/env@v1.1.0
       with:
         python-version: ${{ inputs.python-version }}
         pytorch-version: ${{ inputs.pytorch-version }}
@@ -44,7 +44,4 @@ runs:
     - name: Run CPU tests ${{ inputs.pytorch-dtype }}
       shell: bash -l {0}
       run: |
-        pytest -v ./tests/ \
-            --device=${{ inputs.pytorch-device }} \
-            --dtype=${{ inputs.pytorch-dtype }} \
-            ${{ inputs.pytest-extra }}
+        pytest -v ./tests/ --device=${{ inputs.pytorch-device }} --dtype=${{ inputs.pytorch-dtype }} ${{ inputs.pytest-extra }}
