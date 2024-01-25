@@ -16,15 +16,15 @@ on:
       pytorch-dtype:
         required: false
         type: string
-        default: 'float32'
+        default: float32
       pytorch-device:
         required: false
         type: string
-        default: 'cpu'
+        default: cpu
       pytest-extra:
         required: false
         type: string
-        default: '--timeout=5 -k "not test_dynamo"'
+        default: --timeout=5 -k "not test_dynamo"
       fail-fast:
         required: false
         type: boolean
@@ -63,4 +63,4 @@ jobs:
         pytorch-version: ${{ matrix.pytorch-version }}
         pytorch-dtype: ${{ inputs.pytorch-dtype }}
         pytorch-device: ${{ inputs.pytorch-device }}
-        pytest-extra: ${{ matrix.pytest-extra }}
+        pytest-extra: ${{ inputs.pytest-extra }}
