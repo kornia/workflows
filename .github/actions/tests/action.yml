@@ -1,32 +1,30 @@
-name: Tests run
+name: pytest
 
-on:
-  workflow_dispatch:
-    inputs:
-      python-version:
-        required: false
-        type: string
-        default: "3.11"
-      pytorch-version:
-        required: false
-        type: string
-        default: 2.1.2
-      os:
-        required: false
-        type: string
-        default: ubuntu-latest
-      pytorch-dtype:
-        required: false
-        type: string
-        default: float32
-      pytorch-device:
-        required: false
-        type: string
-        default: cpu
-      pytest-extra:
-        required: false
-        type: string
-        default: --timeout=5 -k "not test_dynamo"
+inputs:
+  python-version:
+    required: false
+    type: string
+    default: "3.11"
+  pytorch-version:
+    required: false
+    type: string
+    default: 2.1.2
+  os:
+    required: false
+    type: string
+    default: ubuntu-latest
+  pytorch-dtype:
+    required: false
+    type: string
+    default: float32
+  pytorch-device:
+    required: false
+    type: string
+    default: cpu
+  pytest-extra:
+    required: false
+    type: string
+    default: --timeout=5 -k "not test_dynamo"
 
 
 runs:
