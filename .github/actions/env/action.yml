@@ -16,6 +16,10 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - uses: asottile/workflows/.github/actions/fast-checkout@v1.6.0
+      with:
+        repository: kornia/kornia
+
     - name: Setup environment
       uses: actions/setup-python@v4
       with:

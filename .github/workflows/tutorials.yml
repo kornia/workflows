@@ -44,17 +44,13 @@ jobs:
             python-version: '3.11'
 
     steps:
-      - name: Checkout kornia
-        uses: actions/checkout@v3
-
       - name: Setting environment on ${{ inputs.os }} with python ${{ matrix.python-version }} and pytorch ${{ matrix.pytorch-version }}
-        uses: kornia/workflows/.github/actions/env@v1.1.0
+        uses: kornia/workflows/.github/actions/env@v1.2.0
         with:
           python-version: ${{ matrix.python-version }}
           pytorch-version: ${{ matrix.pytorch-version }}
 
-      - name: Checkout tutorials
-        uses: actions/checkout@v3
+      - uses: asottile/workflows/.github/actions/fast-checkout@v1.6.0
         with:
           repository: 'kornia/tutorials'
           path: 'tutorials-repo/'
