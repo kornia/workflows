@@ -28,7 +28,7 @@ jobs:
         pytorch-dtype: ['float32', 'float64']
 
     steps:
-    - uses: kornia/workflows/.github/actions/coverage@v1.1.0
+    - uses: kornia/workflows/.github/actions/coverage@v1.2.0
       with:
         os: ${{ inputs.os }}
         python-version: ${{ inputs.python-version }}
@@ -47,7 +47,7 @@ jobs:
         pytorch-dtype: ['float32']
 
     steps:
-    - uses: kornia/workflows/.github/actions/coverage@v1.1.0
+    - uses: kornia/workflows/.github/actions/coverage@v1.2.0
       with:
         os: ${{ inputs.os }}
         python-version: ${{ inputs.python-version }}
@@ -67,7 +67,7 @@ jobs:
         pytorch-dtype: ['float32', 'float64']
 
     steps:
-    - uses: kornia/workflows/.github/actions/coverage@v1.1.0
+    - uses: kornia/workflows/.github/actions/coverage@v1.2.0
       with:
         os: ${{ inputs.os }}
         python-version: ${{ inputs.python-version }}
@@ -81,8 +81,7 @@ jobs:
     runs-on: ${{ inputs.os }}
     needs: [slow, dynamo, overall]
     steps:
-      - name: Checkout kornia
-        uses: actions/checkout@v3
+      - uses: asottile/workflows/.github/actions/fast-checkout@v1.6.0
 
       - name: Download coverage reports
         uses: actions/download-artifact@v4
