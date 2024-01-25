@@ -18,6 +18,8 @@ on:
         type: boolean
         default: false
       ref:
+        required: false
+        type: string
         default: ${{ github.sha }}
 
 jobs:
