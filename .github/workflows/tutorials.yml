@@ -50,7 +50,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
           pytorch-version: ${{ matrix.pytorch-version }}
 
-      - uses: asottile/workflows/.github/actions/fast-checkout@v1.6.0
+      - uses: actions/checkout@v4
         with:
           repository: 'kornia/tutorials'
           path: 'tutorials-repo/'
