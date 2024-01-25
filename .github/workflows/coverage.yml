@@ -105,9 +105,9 @@ jobs:
             $GITHUB_WORKSPACE/coverage-slow-float32 \
             $GITHUB_WORKSPACE/coverage-slow-float64 \
             $GITHUB_WORKSPACE/coverage-overall-float32 \
-            $GITHUB_WORKSPACE/coverage-overall-float64 \
+            $GITHUB_WORKSPACE/coverage-overall-float64
           coverage xml -o coverage.xml # Generate the xml
-          coverage report
+          coverage report --show-missing --skip-covered
 
       - if: always()
         name: Upload coverage
