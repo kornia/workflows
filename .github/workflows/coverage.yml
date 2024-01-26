@@ -18,6 +18,8 @@ on:
         type: string
         default: ubuntu-latest
       ref:
+        required: false
+        type: string
         default: ${{ github.sha }}
 
 jobs:
@@ -85,6 +87,9 @@ jobs:
     needs: [slow, dynamo, overall]
     steps:
       - uses: asottile/workflows/.github/actions/fast-checkout@v1.6.0
+        with:
+          repository: kornia/kornia
+          ref: ${{ inputs.ref }}
 
       - name: Download coverage reports
         uses: actions/download-artifact@v4
