@@ -23,6 +23,8 @@ jobs:
         path: subdir
     - uses: ./subdir/.github/actions/env/
       with:
+        pytorch-version: '1.9.1'
+        python-version: '3.8'
         ref: main
 
   coverage:

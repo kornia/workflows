@@ -39,11 +39,20 @@ runs:
       shell: bash
       run: pip install torch==${{ inputs.pytorch-version }} --index-url https://download.pytorch.org/whl/cpu
 
+    - if: ${{ contains(fromJson('["1.9.1"]'), inputs.pytorch-version) }}
+      name: Install accelerate for old torchs
+      shell: bash
+      run: pip install accelerate==0.20.3
+
     - name: Install Kornia dev
       shell: bash
       run: pip install .[dev,x]
 
-    - name: Check dependencies and kornia version
+    - name: Check torch version
+      shell: bash
+      run: pip show torch | grep ${{ inputs.pytorch-version }}  || false
+
+    - name: Print dependencies and kornia version
       shell: bash
       run: |
         python -c "import torch;print('Pytorch version: ', torch.__version__)"
