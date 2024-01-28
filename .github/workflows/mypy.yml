@@ -57,7 +57,7 @@ jobs:
 
     - name: Run typing tests
       shell: bash -l {0}
-      run: mypy --cobertura-xml-report ./
+      run: mypy kornia/
 
     # - if: always()
     #   name: Upload typing coverage
