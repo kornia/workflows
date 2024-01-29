@@ -26,7 +26,7 @@ Has the inputs:
 #### example
 ```yaml
   steps:
-  - uses: kornia/workflows/.github/actions/env@v1.3.0
+  - uses: kornia/workflows/.github/actions/env@v1.4.1
 ```
 
 ### .github/actions/tests
@@ -53,7 +53,7 @@ Has the inputs:
 #### example
 ```yaml
   steps:
-  - uses: kornia/workflows/.github/actions/tests@v1.3.0
+  - uses: kornia/workflows/.github/actions/tests@v1.4.1
 ```
 
 ### .github/actions/coverage
@@ -82,7 +82,7 @@ Has the inputs:
 #### example
 ```yaml
   steps:
-  - uses: kornia/workflows/.github/coverage/tests@v1.3.0
+  - uses: kornia/workflows/.github/coverage/tests@v1.4.1
 ```
 
 ## Reusable workflows
@@ -116,7 +116,7 @@ A matrix strategy will be adopted from the list of python and pytorch version.
 ```yaml
 jobs:
   tests:
-    uses: kornia/workflows/.github/workflows/tests@v1.3.0
+    uses: kornia/workflows/.github/workflows/tests@v1.4.1
     with:
       python-version: '["3.8", "3.11"]'
       pytorch-version: '["1.13.1", "2.0.0"]'
@@ -172,7 +172,7 @@ A matrix strategy will be adopted from the list of python and pytorch version.
 ```yaml
 jobs:
   coverage:
-    uses: kornia/workflows/.github/workflows/coverage@v1.3.0
+    uses: kornia/workflows/.github/workflows/coverage@v1.4.1
     with:
       python-version: "3.11"
       pytorch-version: "2.0.0"
@@ -201,7 +201,7 @@ A matrix strategy will be adopted from the list of python and pytorch version.
 ```yaml
 jobs:
   tutorials:
-    uses: kornia/workflows/.github/workflows/tutorials@v1.3.0
+    uses: kornia/workflows/.github/workflows/tutorials@v1.4.1
 ```
 
 ### .github/workflows/mypy.yml
@@ -226,7 +226,7 @@ Has the inputs:
 ```yaml
 jobs:
   typing:
-    uses: kornia/workflows/.github/workflows/mypy@v1.3.0
+    uses: kornia/workflows/.github/workflows/mypy@v1.4.1
 ```
 
 ### .github/workflows/docs.yml
@@ -251,5 +251,5 @@ Has the inputs:
 ```yaml
 jobs:
   docs:
-    uses: kornia/workflows/.github/workflows/docs@v1.3.0
+    uses: kornia/workflows/.github/workflows/docs@v1.4.1
 ```
