@@ -66,6 +66,11 @@ jobs:
     with:
       ref: main
 
+  workflow-tutorials:
+    uses: ./.github/workflows/tutorials.yml
+    with:
+      ref: main
+
   workflow-docs:
     uses: ./.github/workflows/docs.yml
     with:
