@@ -63,9 +63,7 @@ jobs:
       - name: Install dependencies
         working-directory: ./tutorials-repo/
         shell: bash -l {0}
-        run: |
-          conda install torchvision -c pytorch
-          make setup
+        run: make setup
 
       - name: Check deps
         working-directory: ./tutorials-repo/
