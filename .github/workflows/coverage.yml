@@ -8,7 +8,7 @@ on:
       pytorch-version:
         required: false
         type: string
-        default: "2.1.2"
+        default: "2.2.0"
       pytorch-device:
         required: false
         type: string
@@ -122,6 +122,5 @@ jobs:
         with:
           file: coverage.xml
           token: ${{ secrets.CODECOV_TOKEN }} # to not depend on build via GH API
-          # flags: cpu,Ubuntu-latest_py-3.11_pt-2.1.2_float32,float64
           flags: cpu,${{ inputs.os }}_py-${{ inputs.python-version }}_pt-${{ inputs.pytorch-version }}_float32,float64
           name: cpu-coverage
