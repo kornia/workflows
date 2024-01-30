@@ -22,6 +22,8 @@ Has the inputs:
     channel.
   - If the value passed is `nightly` the nightly version of pytorch with dynamo
     will be installed from pip.
+- `extra-deps`: (string, default: `''`) will install alongside the pytorch these dependencies
+    before install kornia itself.
 
 #### example
 ```yaml
