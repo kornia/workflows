@@ -16,6 +16,12 @@ inputs:
   ref:
     default: ${{ github.sha }}
 
+  extra-deps:
+    description: "Dependencies to be installed manually before installing kornia."
+    default: ""
+    required: False
+    type: strig
+
 runs:
   using: "composite"
   steps:
@@ -32,12 +38,12 @@ runs:
     - if: ${{ contains(fromJson('["nightly"]'), inputs.pytorch-version ) }}
       name: Install PyTorch nightly
       shell: bash
-      run: pip install numpy --pre torch[dynamo] --force-reinstall --extra-index-url https://download.pytorch.org/whl/nightly/cpu/
+      run: pip install numpy --pre torch[dynamo] ${{ inputs.extra-deps }} --force-reinstall --extra-index-url https://download.pytorch.org/whl/nightly/cpu/
 
     - if: ${{ contains(fromJson('["nightly"]'), inputs.pytorch-version ) == false}}
       name: Install pytorch
       shell: bash
-      run: pip install torch==${{ inputs.pytorch-version }} --index-url https://download.pytorch.org/whl/cpu
+      run: pip install torch==${{ inputs.pytorch-version }} ${{ inputs.extra-deps }} --index-url https://download.pytorch.org/whl/cpu
 
     - if: ${{ contains(fromJson('["1.9.1"]'), inputs.pytorch-version) }}
       name: Install accelerate for old torchs
