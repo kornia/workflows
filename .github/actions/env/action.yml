@@ -16,6 +16,9 @@ inputs:
   ref:
     default: ${{ github.sha }}
 
+  fetch-depth:
+    default: 1
+
   extra-deps:
     description: "Dependencies to be installed manually before installing kornia."
     default: ""
@@ -29,6 +32,7 @@ runs:
       with:
         repository: kornia/kornia
         ref: ${{ inputs.ref }}
+        fetch-depth: ${{ inputs.fetch-depth }}
 
     - name: Setup environment
       uses: actions/setup-python@v4
