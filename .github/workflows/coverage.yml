@@ -32,7 +32,7 @@ jobs:
         pytorch-dtype: ['float32', 'float64']
 
     steps:
-    - uses: kornia/workflows/.github/actions/coverage@v1.6.0
+    - uses: kornia/workflows/.github/actions/coverage@v1.7.0
       with:
         os: ${{ inputs.os }}
         python-version: ${{ inputs.python-version }}
@@ -52,7 +52,7 @@ jobs:
         pytorch-dtype: ['float32']
 
     steps:
-    - uses: kornia/workflows/.github/actions/coverage@v1.6.0
+    - uses: kornia/workflows/.github/actions/coverage@v1.7.0
       with:
         os: ${{ inputs.os }}
         python-version: ${{ inputs.python-version }}
@@ -72,7 +72,7 @@ jobs:
         pytorch-dtype: ['float32', 'float64']
 
     steps:
-    - uses: kornia/workflows/.github/actions/coverage@v1.6.0
+    - uses: kornia/workflows/.github/actions/coverage@v1.7.0
       with:
         os: ${{ inputs.os }}
         python-version: ${{ inputs.python-version }}
