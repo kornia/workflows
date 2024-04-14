@@ -39,24 +39,33 @@ runs:
       with:
         python-version: ${{ inputs.python-version }}
 
+    - name: Install UV
+      shell: bash
+      run: pip install uv
+
     - if: ${{ contains(fromJson('["nightly"]'), inputs.pytorch-version ) }}
       name: Install PyTorch nightly
       shell: bash
-      run: pip install numpy --pre torch[dynamo] ${{ inputs.extra-deps }} --force-reinstall --extra-index-url https://download.pytorch.org/whl/nightly/cpu/
+      run: uv pip install --system numpy --pre torch[dynamo] ${{ inputs.extra-deps }} --force-reinstall --extra-index-url https://download.pytorch.org/whl/nightly/cpu/
 
     - if: ${{ contains(fromJson('["nightly"]'), inputs.pytorch-version ) == false}}
       name: Install pytorch
       shell: bash
-      run: pip install torch==${{ inputs.pytorch-version }} ${{ inputs.extra-deps }} --index-url https://download.pytorch.org/whl/cpu
+      run:   |
+             if [ "$RUNNER_OS" == "Linux" ] || [ "$RUNNER_OS" == "Windows" ]; then
+                uv pip install --system torch==${{ inputs.pytorch-version }}+cpu ${{ inputs.extra-deps }} --find-links https://download.pytorch.org/whl/torch_stable.html
+             else
+                uv pip install --system torch==${{ inputs.pytorch-version }} ${{ inputs.extra-deps }} --find-links https://download.pytorch.org/whl/torch_stable.html
+             fi
 
     - if: ${{ contains(fromJson('["1.9.1"]'), inputs.pytorch-version) }}
       name: Install accelerate for old torchs
       shell: bash
-      run: pip install accelerate==0.20.3
+      run: uv pip install --system accelerate==0.20.3
 
     - name: Install Kornia dev
       shell: bash
-      run: pip install .[dev,x]
+      run: uv pip install --system --editable .[dev,x]
 
     - name: Check torch version
       shell: bash
