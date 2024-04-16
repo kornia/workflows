@@ -61,8 +61,7 @@ jobs:
 
     - name: Install docs deps
       shell: bash -l {0}
-      # TODO: run: uv pip install --system --editable .[docs]
-      run: pip install -e .[docs]
+      run: uv pip install --system --editable .[docs]
 
     - name: Build Documentation
       shell: bash -l {0}
