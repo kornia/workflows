@@ -49,7 +49,7 @@ jobs:
 
     steps:
     - name: Setting environment on ${{ inputs.os }} with python ${{ matrix.python-version }} and pytorch ${{ matrix.pytorch-version }}
-      uses: kornia/workflows/.github/actions/env@v1.8.0
+      uses: kornia/workflows/.github/actions/env@v1.8.1
       with:
         python-version: ${{ matrix.python-version }}
         pytorch-version: ${{ matrix.pytorch-version }}
