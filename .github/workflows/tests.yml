@@ -60,7 +60,7 @@ jobs:
             python-version: '3.11'
 
     steps:
-    - uses: kornia/workflows/.github/actions/tests@v1.7.0
+    - uses: kornia/workflows/.github/actions/tests@v1.8.0
       with:
         os: ${{ inputs.os }}
         python-version: ${{ matrix.python-version }}
