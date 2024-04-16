@@ -54,7 +54,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
           pytorch-version: ${{ matrix.pytorch-version }}
           ref: ${{ inputs.ref }}
-          extra-deps: torchvision
+          extra-deps: torchvision==0.17.2+cpu
 
       - uses: actions/checkout@v4
         with:
