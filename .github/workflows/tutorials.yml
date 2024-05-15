@@ -8,7 +8,7 @@ on:
       pytorch-version:
         required: false
         type: string
-        default: '["2.2.2"]'
+        default: '["2.3.0"]'
       os:
         required: false
         type: string
@@ -54,7 +54,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
           pytorch-version: ${{ matrix.pytorch-version }}
           ref: ${{ inputs.ref }}
-          extra-deps: torchvision==0.17.2+cpu
+          extra-deps: torchvision==0.18.0+cpu
 
       - uses: actions/checkout@v4
         with:
