@@ -8,7 +8,7 @@ inputs:
   pytorch-version:
     required: false
     type: string
-    default: 2.3.0
+    default: 2.3.1
   os:
     required: false
     type: string
