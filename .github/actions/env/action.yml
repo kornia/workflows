@@ -4,7 +4,7 @@ inputs:
   python-version:
     description: "The python version desired."
     required: true
-    default: "3.11"
+    default: "3.12"
     type: string
 
   pytorch-version:
@@ -35,7 +35,7 @@ runs:
         fetch-depth: ${{ inputs.fetch-depth }}
 
     - name: Setup environment
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: ${{ inputs.python-version }}
 
