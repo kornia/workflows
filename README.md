@@ -15,7 +15,7 @@ Use the actions:
 - `asottile/workflows/.github/actions/fast-checkout`
 
 Has the inputs:
-- `python-version`: (string, default: `'3.11'`) the python version desired.
+- `python-version`: (string, default: `'3.12'`) the python version desired.
   - The version should be supported by `setup-python@v4` action.
 - `pytorch-version`: (string, default: `'2.3.1`') the pytorch version desired.
   - This value will be used to install pytorch using conda from pytorch
@@ -38,7 +38,7 @@ responsible for running kornia tests.
 Use the actions:
 - `kornia/workflows/.github/actions/env`
 Has the inputs:
-- `python-version`: (string, default: `'3.11'`) the python version desired.
+- `python-version`: (string, default: `'3.12'`) the python version desired.
   - The version should be supported by `setup-python@v4` action.
 - `pytorch-version`: (string, default: `'2.3.1`') the pytorch version desired.
   - This value will be used to install pytorch using conda from pytorch
@@ -99,7 +99,7 @@ Use the actions:
 
 Has the inputs:
 - `os`: (string, default: `ubuntu-latest`) the OS name same as supported by [gha](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#choosing-github-hosted-runners).
-- `python-version`: (json list of strings, default: `'["3.11"]'`) a string with
+- `python-version`: (json list of strings, default: `'["3.12"]'`) a string with
   format of a json list within strings for each python version desired.
 - `pytorch-version`: (json list of strings, default: `'["2.3.1"]'`) a string
   with format of a json list within strings for each pytorch version desired.
@@ -120,7 +120,7 @@ jobs:
   tests:
     uses: kornia/workflows/.github/workflows/tests@v1.9.1
     with:
-      python-version: '["3.8", "3.11"]'
+      python-version: '["3.8", "3.12"]'
       pytorch-version: '["1.13.1", "2.0.0"]'
 ```
 
@@ -158,7 +158,7 @@ Use the actions:
 
 Has the inputs:
 - `os`: (string, default: `ubuntu-latest`) the OS name same as supported by [gha](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#choosing-github-hosted-runners).
-- `python-version`: (string, default: `'3.11'`) the python version desired.
+- `python-version`: (string, default: `'3.12'`) the python version desired.
   - The version should be supported by `setup-python@v4` action.
 - `pytorch-version`: (string, default: `'2.3.1`') the pytorch version desired.
   - This value will be used to install pytorch using conda from pytorch
@@ -176,7 +176,7 @@ jobs:
   coverage:
     uses: kornia/workflows/.github/workflows/coverage@v1.9.1
     with:
-      python-version: "3.11"
+      python-version: "3.12"
       pytorch-version: "2.0.0"
 ```
 
@@ -190,7 +190,7 @@ Use the actions:
 
 Has the inputs:
 - `os`: (string, default: `ubuntu-latest`) the OS name same as supported by [gha](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#choosing-github-hosted-runners).
-- `python-version`: (json list of strings, default: `'["3.11"]'`) a string with
+- `python-version`: (json list of strings, default: `'["3.12"]'`) a string with
   format of a json list within strings for each python version desired.
 - `pytorch-version`: (json list of strings, default: `'["2.3.1"]'`) a string
   with format of a json list within strings for each pytorch version desired.
@@ -216,7 +216,7 @@ Use the actions:
 
 Has the inputs:
 - `os`: (string, default: `ubuntu-latest`) the OS name same as supported by [gha](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#choosing-github-hosted-runners).
-- `python-version`: (json list of strings, default: `'["3.11"]'`) a string with
+- `python-version`: (json list of strings, default: `'["3.12"]'`) a string with
   format of a json list within strings for each python version desired.
 - `pytorch-version`: (json list of strings, default: `'["2.3.1"]'`) a string
   with format of a json list within strings for each pytorch version desired.
@@ -242,7 +242,7 @@ Use the actions:
 
 Has the inputs:
 - `os`: (string, default: `ubuntu-latest`) the OS name same as supported by [gha](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#choosing-github-hosted-runners).
-- `python-version`: (json list of strings, default: `'["3.11"]'`) a string with
+- `python-version`: (json list of strings, default: `'["3.12"]'`) a string with
   format of a json list within strings for each python version desired.
 - `pytorch-version`: (json list of strings, default: `'["2.3.1"]'`) a string
   with format of a json list within strings for each pytorch version desired.
