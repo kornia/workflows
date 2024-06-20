@@ -58,6 +58,11 @@ runs:
                 uv pip install --system torch==${{ inputs.pytorch-version }} ${{ inputs.extra-deps }} --find-links https://download.pytorch.org/whl/torch_stable.html
              fi
 
+    - if: ${{ contains(fromJson('["1.9.1", "1.10.2", "1.11.0", "1.12.1", "1.13.1", "2.0.1", "2.1.2", "2.2.2"]'), inputs.pytorch-version) }}
+      name: Install numpy for old torchs
+      shell: bash
+      run: uv pip install --system "numpy<2.0.0"
+
     - if: ${{ contains(fromJson('["1.9.1"]'), inputs.pytorch-version) }}
       name: Install accelerate for old torchs
       shell: bash
