@@ -53,9 +53,9 @@ runs:
       shell: bash
       run:   |
              if [ "$RUNNER_OS" == "Linux" ] || [ "$RUNNER_OS" == "Windows" ]; then
-                uv pip install --system torch==${{ inputs.pytorch-version }}+cpu ${{ inputs.extra-deps }} --find-links https://download.pytorch.org/whl/torch_stable.html
+                uv pip install --system torch==${{ inputs.pytorch-version }}+cpu ${{ inputs.extra-deps }} --find-links https://download.pytorch.org/whl/torch
              else
-                uv pip install --system torch==${{ inputs.pytorch-version }} ${{ inputs.extra-deps }} --find-links https://download.pytorch.org/whl/torch_stable.html
+                uv pip install --system torch==${{ inputs.pytorch-version }} ${{ inputs.extra-deps }} --find-links https://download.pytorch.org/whl/torch
              fi
 
     - if: ${{ contains(fromJson('["1.9.1", "1.10.2", "1.11.0", "1.12.1", "1.13.1", "2.0.1", "2.1.2", "2.2.2"]'), inputs.pytorch-version) }}
