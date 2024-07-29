@@ -8,7 +8,7 @@ inputs:
   pytorch-version:
     required: false
     type: string
-    default: 2.3.1
+    default: 2.4.0
   os:
     required: false
     type: string
@@ -33,7 +33,7 @@ runs:
   using: "composite"
   steps:
     - name: Setting environment on ${{ inputs.os }} with python ${{ inputs.python-version }} and pytorch ${{ inputs.pytorch-version }}
-      uses: kornia/workflows/.github/actions/env@v1.10.1
+      uses: kornia/workflows/.github/actions/env@v1.11.0
       with:
         python-version: ${{ inputs.python-version }}
         pytorch-version: ${{ inputs.pytorch-version }}
