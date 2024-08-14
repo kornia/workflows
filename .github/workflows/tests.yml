@@ -33,6 +33,15 @@ on:
         required: false
         type: string
         default: ${{ github.sha }}
+      cache-path:
+        required: false
+        type: string
+      cache-key:
+        required: false
+        type: string
+      cache-restore-keys:
+        required: false
+        type: string
 
 jobs:
   tests:
@@ -77,6 +86,14 @@ jobs:
             python-version: '3.12'
 
     steps:
+    - name: Restore cache
+      if: github.event.inputs.cache-path != ''
+      uses: actions/cache/restore@v4
+      with:
+        path: ${{ inputs.cache-path }}
+        key: ${{ inputs.cache-key }}
+        restore-keys: ${{ inputs.cache-restore-keys }}
+
     - uses: kornia/workflows/.github/actions/tests@v1.11.0
       with:
         os: ${{ inputs.os }}
