@@ -21,6 +21,15 @@ on:
         required: false
         type: string
         default: ${{ github.sha }}
+      cache-path:
+        required: false
+        type: string
+      cache-key:
+        required: false
+        type: string
+      cache-restore-keys:
+        required: false
+        type: string
 
 jobs:
   test-and-build:
@@ -71,6 +80,14 @@ jobs:
         python-version: ${{ matrix.python-version }}
         pytorch-version: ${{ matrix.pytorch-version }}
         ref: ${{ inputs.ref }}
+
+    - name: Restore cache
+      if: "${{ inputs.cache-path != '' }}"
+      uses: actions/cache/restore@v4
+      with:
+        path: ${{ inputs.cache-path }}
+        key: ${{ inputs.cache-key }}
+        restore-keys: ${{ inputs.cache-restore-keys }}
 
     - name: Run doctest
       shell: bash -l {0}

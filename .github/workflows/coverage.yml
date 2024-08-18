@@ -21,6 +21,15 @@ on:
         required: false
         type: string
         default: ${{ github.sha }}
+      cache-path:
+        required: false
+        type: string
+      cache-key:
+        required: false
+        type: string
+      cache-restore-keys:
+        required: false
+        type: string
 
 jobs:
   slow:
@@ -32,6 +41,14 @@ jobs:
         pytorch-dtype: ['float32', 'float64']
 
     steps:
+    - name: Restore cache
+      if: "${{ inputs.cache-path != '' }}"
+      uses: actions/cache/restore@v4
+      with:
+        path: ${{ inputs.cache-path }}
+        key: ${{ inputs.cache-key }}
+        restore-keys: ${{ inputs.cache-restore-keys }}
+
     - uses: kornia/workflows/.github/actions/coverage@v1.11.0
       with:
         os: ${{ inputs.os }}
@@ -52,6 +69,14 @@ jobs:
         pytorch-dtype: ['float32']
 
     steps:
+    - name: Restore cache
+      if: "${{ inputs.cache-path != '' }}"
+      uses: actions/cache/restore@v4
+      with:
+        path: ${{ inputs.cache-path }}
+        key: ${{ inputs.cache-key }}
+        restore-keys: ${{ inputs.cache-restore-keys }}
+
     - uses: kornia/workflows/.github/actions/coverage@v1.11.0
       with:
         os: ${{ inputs.os }}
@@ -72,6 +97,14 @@ jobs:
         pytorch-dtype: ['float32', 'float64']
 
     steps:
+    - name: Restore cache
+      if: "${{ inputs.cache-path != '' }}"
+      uses: actions/cache/restore@v4
+      with:
+        path: ${{ inputs.cache-path }}
+        key: ${{ inputs.cache-key }}
+        restore-keys: ${{ inputs.cache-restore-keys }}
+
     - uses: kornia/workflows/.github/actions/coverage@v1.11.0
       with:
         os: ${{ inputs.os }}
