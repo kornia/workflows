@@ -71,7 +71,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
           pytorch-version: ${{ matrix.pytorch-version }}
           ref: ${{ inputs.ref }}
-          extra-deps: torchvision==0.18.1+cpu
+          extra-deps: torchvision==0.19.0+cpu --find-links https://download.pytorch.org/whl/torchvision
 
       - uses: actions/checkout@v4
         with:
