@@ -94,7 +94,7 @@ jobs:
         key: ${{ inputs.cache-key }}
         restore-keys: ${{ inputs.cache-restore-keys }}
 
-    - uses: kornia/workflows/.github/actions/tests@v1.12.0
+    - uses: kornia/workflows/.github/actions/tests@v1.12.1
       with:
         os: ${{ inputs.os }}
         python-version: ${{ matrix.python-version }}
