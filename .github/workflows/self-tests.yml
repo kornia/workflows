@@ -24,7 +24,7 @@ jobs:
     - uses: ./subdir/.github/actions/env/
       with:
         pytorch-version: '1.9.1'
-        python-version: '3.8'
+        python-version: '3.9'
         ref: main
 
   coverage:
@@ -52,7 +52,7 @@ jobs:
     with:
       os: ubuntu-latest
       python-version: '["3.10", "3.12"]'
-      pytorch-version: '["2.1.2", "2.4.0"]'
+      pytorch-version: '["2.1.2", "2.5.1"]'
       pytorch-dtype: 'float32'
       ref: main
 
