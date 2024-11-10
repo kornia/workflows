@@ -120,7 +120,7 @@ jobs:
   tests:
     uses: kornia/workflows/.github/workflows/tests@v1.12.1
     with:
-      python-version: '["3.8", "3.12"]'
+      python-version: '["3.9", "3.12"]'
       pytorch-version: '["1.13.1", "2.0.0"]'
 ```
 
