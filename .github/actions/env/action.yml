@@ -10,7 +10,7 @@ inputs:
   pytorch-version:
     description: "The pytorch version desired."
     required: true
-    default: "2.4.0"
+    default: "2.5.1"
     type: string
 
   ref:
