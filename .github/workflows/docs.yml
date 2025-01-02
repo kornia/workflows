@@ -4,7 +4,7 @@ on:
       python-version:
         required: false
         type: string
-        default: '["3.12"]'
+        default: '["3.13"]'
       pytorch-version:
         required: false
         type: string
@@ -72,6 +72,27 @@ jobs:
             python-version: '3.12'
           - pytorch-version: '2.1.2'
             python-version: '3.12'
+            # support to python3.13 only on torch 2.5 or greater
+          - pytorch-version: '1.9.1'
+            python-version: '3.13'
+          - pytorch-version: '1.10.2'
+            python-version: '3.13'
+          - pytorch-version: '1.11.0'
+            python-version: '3.13'
+          - pytorch-version: '1.12.1'
+            python-version: '3.13'
+          - pytorch-version: '1.13.1'
+            python-version: '3.13'
+          - pytorch-version: '2.0.1'
+            python-version: '3.13'
+          - pytorch-version: '2.1.2'
+            python-version: '3.13'
+          - pytorch-version: '2.2.2'
+            python-version: '3.13'
+          - pytorch-version: '2.3.1'
+            python-version: '3.13'
+          - pytorch-version: '2.4.1'
+            python-version: '3.13'
 
     steps:
     - name: Setting environment on ${{ inputs.os }} with python ${{ matrix.python-version }} and pytorch ${{ matrix.pytorch-version }}
